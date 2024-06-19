@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Drawflow Output Condition Node Test</title>
+    <meta name="description"
+        content="Simple library for flow programming. Drawflow allows you to create data flows easily and quickly." />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jerosoler/Drawflow/dist/drawflow.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://jerosoler.github.io/Drawflow/beautiful.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+        integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/gh/jerosoler/Drawflow/dist/drawflow.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
+        integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
+    <style>
+        .drawflow .connection .main-path {
+            stroke: blue !important;
+        }
+
+        #drawflow {
+            width: 100% !important;
+            height: 100vh;
+            overflow: auto;
+            background-color: #f0f0f0;
+            position: relative;
+        }
+
+        .wrapper {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .wrapper,
+        .col-right {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrapper {
+            display: flex;
+        }
+
+        .col-right {
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="col-right">
+            <div id="drawflow" ondrop="drop(event)" ondragover="allowDrop(event)">
+            </div>
+        </div>
+    </div>
+    <!-- <script>
+        var id = document.getElementById("drawflow");
+        const editor = new Drawflow(id);
+        const ivrName = 'ivr ko naam';
+        const ivrDestination = 'ivr ko destination';
+        const numberOfChildren = 3; // You can change this to test with more children
+        editor.reroute = true;
+        editor.start();
+
+        // Add parent node
+        const parentNodeId = editor.addNode(
+            'basic-information', // Node name
+            0, 1, // Number of inputs, Number of outputs
+            30, 150, // Position X, Position Y
+            'basic-information', // Class name
+            {
+                numberOfChildren: numberOfChildren
+            }, // Data
+            `<div class="parent-node" style="padding: 10px;">
+                <p>IVR Name: ${ivrName}</p>
+                <p>IVR Destination: ${ivrDestination}</p>
+            </div>` // HTML
+        );
+
+        // Add child nodes and their respective grandchild nodes
+        for (let i = 1; i <= numberOfChildren; i++) {
+            // Add child node
+            const childNodeId = editor.addNode(
+                `child-${i}`, // Node name
+                1, 1, // Number of inputs, Number of outputs
+                550, 20 + 100 * i, // Position X, Position Y
+                `child-${i}`, // Class name
+                {}, // Data
+                `<div class="child-node" style="padding: 10px;">
+                    Digit Pressed: ${i}
+                </div>` // HTML
+            );
+
+            // Create the connection from parent to child
+            editor.addConnection(parentNodeId, childNodeId, 'output_1', 'input_1');
+
+            // Add grandchild node
+            const grandchildNodeId = editor.addNode(
+                `grandchild-${i}`, // Node name
+                1, 0, // Number of inputs, Number of outputs
+                1050, 20 + 100 * i, // Position X, Position Y
+                `grandchild-${i}`, // Class name
+                {}, // Data
+                `<div class="grandchild-node" style="padding: 10px;">
+                    Grandchild of Digit Pressed: ${i}
+                </div>` // HTML
+            );
+
+            // Create the connection from child to grandchild
+            editor.addConnection(childNodeId, grandchildNodeId, 'output_1', 'input_1');
+        }
+    </script> -->
+    <div id="drawflow" style="width: 100%; height: 100%;"></div>
+    
+    <script>
+        const editor = new Drawflow(document.getElementById('drawflow'));
+        editor.start();
+
+        const jsonData = {
+            "1": {
+                "node_id": "node_4",
+                "destination_type": "IVR",
+                "digit": "1",
+                "next": {
+                    "1": {
+                        "node_id": "node_4",
+                        "destination_type": "IVR",
+                        "digit": "1",
+                        "next": "node_4"
+                    },
+                    "2": {
+                        "node_id": "node_5",
+                        "destination_type": "IVR",
+                        "digit": "2",
+                        "next": {
+                            "1": {
+                                "node_id": "node_2",
+                                "destination_type": "Announcement",
+                                "digit": "1",
+                                "detail": {
+                                    "id": 39,
+                                    "name": "Kushum",
+                                    "audio": "systemrecording\\ttsaudio95.wav"
+                                }
+                            },
+                            "2": {
+                                "node_id": "node_3",
+                                "destination_type": "IVR",
+                                "digit": "2",
+                                "next": {
+                                    "1": {
+                                        "node_id": "node_4",
+                                        "destination_type": "IVR",
+                                        "digit": "1",
+                                        "next": "node_4"
+                                    },
+                                    "2": {
+                                        "node_id": "node_5",
+                                        "destination_type": "IVR",
+                                        "digit": "2",
+                                        "next": "node_5"
+                                    }
+                                },
+                                "detail": {
+                                    "id": 3,
+                                    "ivrname": "Kiran",
+                                    "announcement_id": 40,
+                                    "invalid_input_announcement_id": 39,
+                                    "timeout": 40,
+                                    "invaliddestinationtype": "Announcement",
+                                    "invaliddestination_announcement_id": 39,
+                                    "timeoutdestinationtype": "IVR",
+                                    "timeoutdestination_ivr_id": 2
+                                }
+                            }
+                        },
+                        "detail": {
+                            "id": 2,
+                            "ivrname": "Kusum",
+                            "announcement_id": 40,
+                            "invalid_input_announcement_id": 39,
+                            "timeout": 20,
+                            "invaliddestinationtype": "Terminate",
+                            "timeoutdestinationtype": "Terminate"
+                        }
+                    }
+                },
+                "detail": {
+                    "id": 3,
+                    "ivrname": "Kiran",
+                    "announcement_id": 40,
+                    "invalid_input_announcement_id": 39,
+                    "timeout": 40,
+                    "invaliddestinationtype": "Announcement",
+                    "invaliddestination_announcement_id": 39,
+                    "timeoutdestinationtype": "IVR",
+                    "timeoutdestination_ivr_id": 2
+                }
+            },
+            "2": {
+                "node_id": "node_5",
+                "destination_type": "IVR",
+                "digit": "2",
+                "next": {
+                    "1": {
+                        "node_id": "node_2",
+                        "destination_type": "Announcement",
+                        "digit": "1",
+                        "detail": {
+                            "id": 39,
+                            "name": "Kushum",
+                            "audio": "systemrecording\\ttsaudio95.wav"
+                        }
+                    },
+                    "2": {
+                        "node_id": "node_3",
+                        "destination_type": "IVR",
+                        "digit": "2",
+                        "next": {
+                            "1": {
+                                "node_id": "node_4",
+                                "destination_type": "IVR",
+                                "digit": "1",
+                                "next": {
+                                    "1": {
+                                        "node_id": "node_4",
+                                        "destination_type": "IVR",
+                                        "digit": "1",
+                                        "next": "node_4"
+                                    },
+                                    "2": {
+                                        "node_id": "node_5",
+                                        "destination_type": "IVR",
+                                        "digit": "2",
+                                        "next": "node_5"
+                                    }
+                                },
+                                "detail": {
+                                    "id": 3,
+                                    "ivrname": "Kiran",
+                                    "announcement_id": 40,
+                                    "invalid_input_announcement_id": 39,
+                                    "timeout": 40,
+                                    "invaliddestinationtype": "Announcement",
+                                    "invaliddestination_announcement_id": 39,
+                                    "timeoutdestinationtype": "IVR",
+                                    "timeoutdestination_ivr_id": 2
+                                }
+                            },
+                            "2": {
+                                "node_id": "node_5",
+                                "destination_type": "IVR",
+                                "digit": "2",
+                                "next": "node_5"
+                            }
+                        },
+                        "detail": {
+                            "id": 3,
+                            "ivrname": "Kiran",
+                            "announcement_id": 40,
+                            "invalid_input_announcement_id": 39,
+                            "timeout": 40,
+                            "invaliddestinationtype": "Announcement",
+                            "invaliddestination_announcement_id": 39,
+                            "timeoutdestinationtype": "IVR",
+                            "timeoutdestination_ivr_id": 2
+                        }
+                    }
+                },
+                "detail": {
+                    "id": 2,
+                    "ivrname": "Kusum",
+                    "announcement_id": 40,
+                    "invalid_input_announcement_id": 39,
+                    "timeout": 20,
+                    "invaliddestinationtype": "Terminate",
+                    "timeoutdestinationtype": "Terminate"
+                }
+            }
+        };
+
+        function addNode(editor, nodeData, parentNode = null, parentOutput = null) {
+            const nodeId = nodeData.node_id;
+            const nodeLabel = `${nodeData.destination_type} ${nodeData.digit}`;
+
+            const nodeContent = `
+          <div>
+            <p>${nodeLabel}</p>
+          </div>
+        `;
+
+            const node = editor.addNode(nodeLabel, 1, 1, 100, 100, nodeId, {}, nodeContent);
+
+            if (parentNode && parentOutput) {
+                editor.addConnection(parentNode, parentOutput, node, 1);
+            }
+
+            if (nodeData.next) {
+                Object.keys(nodeData.next).forEach(output => {
+                    addNode(editor, nodeData.next[output], node, output);
+                });
+            }
+        }
+
+        Object.keys(jsonData).forEach(key => {
+            addNode(editor, jsonData[key]);
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/drawflow@0.0.42/dist/drawflow.min.css" />
+    <title>IVR Flow Diagram</title>
+    <style>
+        #drawflow {
+            width: 100%;
+            height: 100vh;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="drawflow"></div>
+    <script src="https://cdn.jsdelivr.net/npm/drawflow@0.0.42/dist/drawflow.min.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const editor = new Drawflow(document.getElementById('drawflow'));
+            editor.start();
+
+            const jsonData = {
+                "1": {
+                    "node_id": "node_4",
+                    "destination_type": "IVR",
+                    "digit": "1",
+                    "next": {
+                        "1": {
+                            "node_id": "node_4",
+                            "destination_type": "IVR",
+                            "digit": "1",
+                            "next": "node_4"
+                        },
+                        "2": {
+                            "node_id": "node_5",
+                            "destination_type": "IVR",
+                            "digit": "2",
+                            "next": {
+                                "1": {
+                                    "node_id": "node_2",
+                                    "destination_type": "Announcement",
+                                    "digit": "1",
+                                    "detail": {
+                                        "id": 39,
+                                        "name": "Kushum",
+                                        "audio": "systemrecording\\ttsaudio95.wav"
+                                    }
+                                },
+                                "2": {
+                                    "node_id": "node_3",
+                                    "destination_type": "IVR",
+                                    "digit": "2",
+                                    "next": {
+                                        "1": {
+                                            "node_id": "node_4",
+                                            "destination_type": "IVR",
+                                            "digit": "1",
+                                            "next": "node_4"
+                                        },
+                                        "2": {
+                                            "node_id": "node_5",
+                                            "destination_type": "IVR",
+                                            "digit": "2",
+                                            "next": "node_5"
+                                        }
+                                    },
+                                    "detail": {
+                                        "id": 3,
+                                        "ivrname": "Kiran",
+                                        "announcement_id": 40,
+                                        "invalid_input_announcement_id": 39,
+                                        "timeout": 40,
+                                        "invaliddestinationtype": "Announcement",
+                                        "invaliddestination_announcement_id": 39,
+                                        "timeoutdestinationtype": "IVR",
+                                        "timeoutdestination_ivr_id": 2
+                                    }
+                                }
+                            },
+                            "detail": {
+                                "id": 2,
+                                "ivrname": "Kusum",
+                                "announcement_id": 40,
+                                "invalid_input_announcement_id": 39,
+                                "timeout": 20,
+                                "invaliddestinationtype": "Terminate",
+                                "timeoutdestinationtype": "Terminate"
+                            }
+                        }
+                    },
+                    "detail": {
+                        "id": 3,
+                        "ivrname": "Kiran",
+                        "announcement_id": 40,
+                        "invalid_input_announcement_id": 39,
+                        "timeout": 40,
+                        "invaliddestinationtype": "Announcement",
+                        "invaliddestination_announcement_id": 39,
+                        "timeoutdestinationtype": "IVR",
+                        "timeoutdestination_ivr_id": 2
+                    }
+                },
+                "2": {
+                    "node_id": "node_5",
+                    "destination_type": "IVR",
+                    "digit": "2",
+                    "next": {
+                        "1": {
+                            "node_id": "node_2",
+                            "destination_type": "Announcement",
+                            "digit": "1",
+                            "detail": {
+                                "id": 39,
+                                "name": "Kushum",
+                                "audio": "systemrecording\\ttsaudio95.wav"
+                            }
+                        },
+                        "2": {
+                            "node_id": "node_3",
+                            "destination_type": "IVR",
+                            "digit": "2",
+                            "next": {
+                                "1": {
+                                    "node_id": "node_4",
+                                    "destination_type": "IVR",
+                                    "digit": "1",
+                                    "next": {
+                                        "1": {
+                                            "node_id": "node_4",
+                                            "destination_type": "IVR",
+                                            "digit": "1",
+                                            "next": "node_4"
+                                        },
+                                        "2": {
+                                            "node_id": "node_5",
+                                            "destination_type": "IVR",
+                                            "digit": "2",
+                                            "next": "node_5"
+                                        }
+                                    },
+                                    "detail": {
+                                        "id": 3,
+                                        "ivrname": "Kiran",
+                                        "announcement_id": 40,
+                                        "invalid_input_announcement_id": 39,
+                                        "timeout": 40,
+                                        "invaliddestinationtype": "Announcement",
+                                        "invaliddestination_announcement_id": 39,
+                                        "timeoutdestinationtype": "IVR",
+                                        "timeoutdestination_ivr_id": 2
+                                    }
+                                },
+                                "2": {
+                                    "node_id": "node_5",
+                                    "destination_type": "IVR",
+                                    "digit": "2",
+                                    "next": "node_5"
+                                }
+                            },
+                            "detail": {
+                                "id": 3,
+                                "ivrname": "Kiran",
+                                "announcement_id": 40,
+                                "invalid_input_announcement_id": 39,
+                                "timeout": 40,
+                                "invaliddestinationtype": "Announcement",
+                                "invaliddestination_announcement_id": 39,
+                                "timeoutdestinationtype": "IVR",
+                                "timeoutdestination_ivr_id": 2
+                            }
+                        }
+                    },
+                    "detail": {
+                        "id": 2,
+                        "ivrname": "Kusum",
+                        "announcement_id": 40,
+                        "invalid_input_announcement_id": 39,
+                        "timeout": 20,
+                        "invaliddestinationtype": "Terminate",
+                        "timeoutdestinationtype": "Terminate"
+                    }
+                }
+            };
+
+            let map_node_id={}
+            let map_parent_node_id={}
+            let id=0
+
+            function addNode(editor, nodeData,inputs=0,outputs=0) {
+                const nodeId = nodeData.node_id;
+                const nodeLabel = `${nodeData.node_id}`;
+                const nodeContent = `<div><p>${nodeLabel}</p></div>`;
+                console.log({ nodeData });
+                // editor.addNode(name, inputs, outputs, posx, posy, class, data, html);
+                
+                // inputs= {
+                //     // input_1: { connections: [{ node: "5", input: "output_1" }] }
+                // }
+                // outputs= { }
+                const node = editor.addNode(nodeLabel, inputs, outputs, 100, 100, nodeId, nodeData, nodeContent);
+                // if (parentNode) {
+                //     map_parent_node_id[parentNode]=id
+                // }
+                // map_node_id[nodeId]=id
+                // if (parentNode && parentOutput) {
+                //     try {
+                //         console.log(map_node_id[nodeId], map_parent_node_id[parentNode], nodeId, parentNode)
+                //         editor.addConnection(map_node_id[nodeId], map_parent_node_id[parentNode], nodeId, parentNode);
+                        
+                //     } catch (error) {
+                //         console.log(error)
+                //     }
+                //     // console.log(editor.drawflow.drawflow.Home.data)
+                //     // console.log(editor.drawflow.drawflow.Home.data[map_parent_node_id[nodeId]])
+                //     // console.log(editor.drawflow.drawflow.Home.data[map_node_id[nodeId]])
+                //     // addConnection(id_output, id_input, output_class, input_class)
+                // }
+            }
+
+
+            addNode(editor, {'node_id': 'node_0'},inputs=0,outputs=0)
+            id+=1;
+            Object.keys(jsonData).forEach(key => {
+                nodeData = jsonData[key];
+                id+=1;
+                addNode(editor, nodeData);
+                parendNodeClass = nodeData.node_id
+                parentNode = id;
+                if (nodeData.next && typeof nodeData.next == 'object') {
+                    Object.keys(nodeData.next).forEach(output => {
+                        childNode = nodeData.next[output]
+                        console.log({ 'next': nodeData.next, 'digit': output, 'node': childNode });
+                        id += 1;
+                        addNode(editor, childNode);
+                        childNodeClass = childNode.node_id
+                        try {
+                            console.log({ parentNode, id, parendNodeClass, childNodeClass })
+                            editor.addConnection(id, parentNode, parendNodeClass, childNodeClass);
+                        } catch (error) {
+                            console.log(error)
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

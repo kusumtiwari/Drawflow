@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Drawflow | Simple Flow program libray</title>
+    <meta name="description"
+        content="Simple library for flow programming. Drawflow allows you to create data flows easily and quickly." />
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/gh/jerosoler/Drawflow/dist/drawflow.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
+        integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jerosoler/Drawflow/dist/drawflow.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://jerosoler.github.io/Drawflow/beautiful.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+        integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
+    <header>
+        <h2>Job Form</h2>
+        <div class="github-link">
+            <a href="https://github.com/jerosoler/Drawflow" target="_blank"><i class="fab fa-github fa-3x"></i></a>
+        </div>
+        <div class="them-edit-link">
+            <a href="https://jerosoler.github.io/drawflow-theme-generator/" target="_blank">🎨</a>
+        </div>
+    </header>
+    <div class="wrapper">
+        <div class="col">
+            <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="first-step">
+                <span>First Step</span>
+            </div>
+            <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="second-step">
+                <span>Second Step</span>
+            </div>
+            <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="third-step">
+                <span>Third Step</span>
+            </div>
+        </div>
+        <div class="col-right">
+            <div id="drawflow" ondrop="drop(event)" ondragover="allowDrop(event)">
+            </div>
+        </div>
+    </div>
+    <script>
+        var id = document.getElementById("drawflow");
+        const editor = new Drawflow(id);
+        editor.reroute = true;
+        editor.drawflow = {
+            drawflow: {
+                Home: {
+                    data: {
+                        "1": {
+                            id: 1,
+                            name: "basic-information",
+                            data: {},
+                            class: "basic-information",
+                            html: `
+                        <div>
+                            <div class="form-box">
+                                <p class="form-title">First step of your form:</p>
+                                <form>
+                                    <label for="name">Enter your name:</label><br>
+                                    <input type="text" id="name" name="name"><br>
+                                    <label for="address">Enter your address:</label><br>
+                                    <input type="text" id="address" name="address"><br>
+                                    <label for="mobile">Enter your mobile number:</label><br>
+                                    <input type="text" id="mobile" name="mobile"><br>
+                                    <label for="email">Enter your email address:</label><br>
+                                    <input type="text" id="email" name="email">
+                                </form>
+                            </div>
+                        </div>
+                    `,
+                            typenode: false,
+                            inputs: {},
+                            outputs: {
+                                output_1: { connections: [{ node: "2", output: "input_1" }] }
+                            },
+                            pos_x: 30,
+                            pos_y: 20
+                        },
+                        "2": {
+                            id: 2,
+                            name: "second-step",
+                            data: {},
+                            class: "second-step",
+                            html: `
+                        <div>
+                            <div class="form-box">
+                                <p class="form-title">Second step of your form:</p>
+                                <form>
+                                    <label for="college">Enter your college name:</label><br>
+                                    <input type="text" id="college" name="college"><br>
+                                    <label for="batch">Enter your batch:</label><br>
+                                    <input type="text" id="batch" name="batch"><br>
+                                    <label for="graduation">Enter your year of graduation:</label><br>
+                                    <input type="text" id="graduation" name="graduation">
+                                </form>
+                            </div>
+                        </div>
+                    `,
+                            typenode: false,
+                            inputs: {
+                                input_1: { connections: [{ node: "1", input: "output_1" }] }
+                            },
+                            outputs: {
+                                output_1: {
+                                    connections: [
+                                        { node: "3", output: "input_1" }
+
+                                    ]
+                                }
+                            },
+                            pos_x: 350,
+                            pos_y: 240
+                        },
+                        "3": {
+                            id: 3,
+                            name: "why-join-ekghanti",
+                            data: {},
+                            class: "why-join-ekghanti",
+                            html: `
+                        <div>
+                            <div class="form-box">
+                                <p class="form-title">Why you want to join Ekghanti:</p>
+                                <textarea id="why-join-ekghanti" name="why-join-ekghanti"></textarea>
+                                <button id="submit-btn">Submit</button>
+                            </div>
+                        </div>
+                    `,
+                            typenode: false,
+                            inputs: {
+                                input_1: {
+                                    connections: [
+                                        { node: "2", input: "output_1" }
+                                    ]
+                                }
+                            },
+                            outputs: {
+
+                            },
+                            pos_x: 747,
+                            pos_y: 87
+                        }
+                    }
+                }
+            }
+        };
+        editor.start();
+
+        editor.on("connectionCreated", function (connection) {
+            console.log("Connection created");
+            console.log(connection);
+        });
+
+        editor.on("connectionRemoved", function (connection) {
+            console.log("Connection removed");
+            console.log(connection);
+        });
+
+        editor.on("mouseMove", function (position) {
+            console.log("Position mouse x:" + position.x + " y:" + position.y);
+        });
+
+        editor.on("nodeMoved", function (id) {
+            console.log("Node moved " + id);
+        });
+        editor.on("translate", function (position) {
+            console.log("Translate x:" + position.x + " y:" + position.y);
+        });
+
+        editor.on("addReroute", function (id) {
+            console.log("Reroute added " + id);
+        });
+
+        editor.on("removeReroute", function (id) {
+            console.log("Reroute removed " + id);
+        });
+
+        /* DRAG EVENT */
+
+        /* Mouse and Touch Actions */
+
+        var elements = document.getElementsByClassName("drag-drawflow");
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].addEventListener("touchend", drop, false);
+            elements[i].addEventListener("touchmove", positionMobile, false);
+            elements[i].addEventListener("touchstart", drag, false);
+        }
+
+        var mobile_item_selec = "";
+        var mobile_last_move = null;
+        function positionMobile(ev) {
+            mobile_last_move = ev;
+        }
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            if (ev.type === "touchstart") {
+                mobile_item_selec = ev.target
+                    .closest(".drag-drawflow")
+                    .getAttribute("data-node");
+            } else {
+                ev.dataTransfer.setData("node", ev.target.getAttribute("data-node"));
+            }
+        }
+
+        function drop(ev) {
+            if (ev.type === "touchend") {
+                var parentdrawflow = document
+                    .elementFromPoint(
+                        mobile_last_move.touches[0].clientX,
+                        mobile_last_move.touches[0].clientY
+                    )
+                    .closest("#drawflow");
+                if (parentdrawflow != null) {
+                    addNodeToDrawFlow(
+                        mobile_item_selec,
+                        mobile_last_move.touches[0].clientX,
+                        mobile_last_move.touches[0].clientY
+                    );
+                }
+                mobile_item_selec = "";
+            } else {
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("node");
+                addNodeToDrawFlow(data, ev.clientX, ev.clientY);
+            }
+        }
+
+
+        var transform = "";
+
+        function closemodal(e) {
+            e.target.closest(".drawflow-node").style.zIndex = "2";
+            e.target.parentElement.parentElement.style.display = "none";
+            //document.getElementById("modalfix").style.display = "none";
+            editor.precanvas.style.transform = transform;
+            editor.precanvas.style.left = "0px";
+            editor.precanvas.style.top = "0px";
+            editor.editor_mode = "edit";
+        }
+
+        function changeModule(event) {
+            var all = document.querySelectorAll(".menu ul li");
+            for (var i = 0; i < all.length; i++) {
+                all[i].classList.remove("selected");
+            }
+            event.target.classList.add("selected");
+        }
+
+        function changeMode(option) {
+            //console.log(lock.id);
+            if (option == "lock") {
+                lock.style.display = "none";
+                unlock.style.display = "block";
+            } else {
+                lock.style.display = "block";
+                unlock.style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>

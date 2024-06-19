@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Drawflow Output Condition Node Test</title>
+    <meta name="description"
+        content="Simple library for flow programming. Drawflow allows you to create data flows easily and quickly." />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jerosoler/Drawflow/dist/drawflow.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://jerosoler.github.io/Drawflow/beautiful.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+        integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/gh/jerosoler/Drawflow/dist/drawflow.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
+        integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div id="drawflow" ondrop="drop(event)" ondragover="allowDrop(event)">
+        </div>
+    </div>
+
+    <script>
+        var id = document.getElementById("drawflow");
+        let numberOfChildren = 5;
+        const ivrName = 'ivr ko naam';
+        const ivrDestination = 'ivr ko destination';
+        const editor = new Drawflow(id);
+        editor.reroute = true;
+
+        const parentNodeHtml = `
+            <div class="parent-node">
+                <h3>Parent Node</h3>
+                <p>IVR Name: ${ivrName}</p>
+                <p>IVR Destination: ${ivrDestination}</p>
+            </div>
+        `;
+
+        const parentNodeId = editor.addNode('parent-node', 0, 1, parentNodeX, 20, 'parent-node', {}, parentNodeHtml);
+        for (let i = 1; i <= numberOfChildren; i++) {
+            const childNodeHtml = `
+                <div class="child-node">
+                    <h3>Child Node ${i}</h3>
+                </div>
+            `;
+            const posX = (containerWidth / (numberOfChildren + 1) * i) - (numberOfChildren * 20); // Increase horizontal spacing between child nodes
+            const posY = 350; // Increased vertical position for all child nodes
+            const childNodeId = editor.addNode(`child-node-${i}`, 1, 0, posX, posY, `child-node`, {}, childNodeHtml);
+            editor.addConnection(parentNodeId, childNodeId, 'output_1', 'input_1');
+        }
+
+    </script>
+</body>
+
+</html>
